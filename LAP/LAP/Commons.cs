@@ -21,6 +21,8 @@ namespace LAP
             return tagetForm;
         }
 
+
+
         public PictureBox getPictureBox(Hashtable hashtable, Control tergat)
         {
             PictureBox pictureBox = new PictureBox();
@@ -65,6 +67,18 @@ namespace LAP
             return label;
         }
 
+        public Label getLabel2(Hashtable hashtable, Form parentDomain)
+        {
+            Label label = new Label();
+            label.Size = (Size)hashtable["size"];
+            label.Location = (Point)hashtable["point"];
+            label.BackColor = (Color)hashtable["color"];
+            label.Name = hashtable["name"].ToString();
+            label.Text = hashtable["text"].ToString();
+            parentDomain.Controls.Add(label);
+            return label;
+        }
+
         public Button getButton(Hashtable hashtable, Control parentDomain)
         {
             Button button = new Button();
@@ -80,6 +94,18 @@ namespace LAP
         }
 
         public TextBox getTextBox(Hashtable hashtable, Control parentDomain)
+        {
+            TextBox textBox = new TextBox();
+            textBox.Width = Convert.ToInt32(hashtable["width"].ToString());
+            textBox.Location = (Point)hashtable["point"];
+            textBox.BackColor = (Color)hashtable["color"];
+            textBox.Name = hashtable["name"].ToString();
+            textBox.Enabled = (bool)hashtable["enabled"];
+            parentDomain.Controls.Add(textBox);
+            return textBox;
+        }
+
+        public TextBox getTextBox2(Hashtable hashtable, Form parentDomain)
         {
             TextBox textBox = new TextBox();
             textBox.Width = Convert.ToInt32(hashtable["width"].ToString());

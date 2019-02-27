@@ -10,17 +10,16 @@ using System.Windows.Forms;
 
 namespace LAP
 {
-    public partial class Form1 : Form
+    public partial class SummonerINFO : Form
     {
-        public Form1()
+        public SummonerINFO()
         {
             InitializeComponent();
-            Load += Form1_Load;
+            Load += SummonerINFO_Load;
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void SummonerINFO_Load(object sender, EventArgs e)
         {
-            //LAP start
 
         }
     }
