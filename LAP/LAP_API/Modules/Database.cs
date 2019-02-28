@@ -80,7 +80,7 @@ namespace LAP_API.Modules
             else
                 return false;
         }
-        public SqlDataReader Reader2(string sql, Hashtable ht)
+        public SqlDataReader Reader2(string sql, int num)
         {
             if (status)
             {
@@ -90,14 +90,12 @@ namespace LAP_API.Modules
                     comm.CommandText = sql;
                     comm.Connection = conn;
                     comm.CommandType = CommandType.StoredProcedure;
-                    foreach (DictionaryEntry data in ht)
-                    {
-                        comm.Parameters.AddWithValue(data.Key.ToString(), data.Value);
-                    }
+                    comm.Parameters.Add(num);
                     return comm.ExecuteReader();
                 }
                 catch
                 {
+                    Console.WriteLine("에러");
                     return null;
                 }
             }

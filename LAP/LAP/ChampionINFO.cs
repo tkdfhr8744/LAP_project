@@ -19,6 +19,8 @@ namespace LAP
         Label rotationTitle;
         PictureBox pc1;
         Commons cm;
+        string APIKEY = "RGAPI-9fad2f9b-4ca8-4323-bd91-ce50ab9470f1";
+        
         public ChampionINFO()
         {
             InitializeComponent();
@@ -66,7 +68,7 @@ namespace LAP
                 hashtable.Add("point", new Point(18+margin, 20));
                 hashtable.Add("pictureboxsizemode", PictureBoxSizeMode.Zoom);
                 pc1 = cm.getPictureBox(hashtable, rotationBack);
-                pc1.Load("https://opgg-static.akamaized.net/images/lol/champion/Talon.png?image=w_140&v=15354684000");
+                pc1.Load("http://gdc3.gudi.kr:42001/select_img");
                 margin += 69;
             }
             
