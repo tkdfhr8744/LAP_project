@@ -21,13 +21,12 @@ namespace LAP
             return tagetForm;
         }
 
-
-
         public PictureBox getPictureBox(Hashtable hashtable, Control tergat)
         {
             PictureBox pictureBox = new PictureBox();
             pictureBox.Size = (Size)hashtable["size"];
             pictureBox.Location = (Point)hashtable["point"];
+            pictureBox.Click += (EventHandler)hashtable["click"];
             pictureBox.SizeMode = (PictureBoxSizeMode)hashtable["pictureboxsizemode"];
             tergat.Controls.Add(pictureBox);
             return pictureBox;

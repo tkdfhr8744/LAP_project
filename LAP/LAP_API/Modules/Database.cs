@@ -90,7 +90,8 @@ namespace LAP_API.Modules
                     comm.CommandText = sql;
                     comm.Connection = conn;
                     comm.CommandType = CommandType.StoredProcedure;
-                    comm.Parameters.Add(num);
+                    comm.Parameters.Add("@rKey",SqlDbType.Int);
+                    comm.Parameters["@rKey"].Value=num;
                     return comm.ExecuteReader();
                 }
                 catch

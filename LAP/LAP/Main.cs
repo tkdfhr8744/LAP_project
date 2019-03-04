@@ -18,6 +18,7 @@ namespace LAP
         Panel pn,championList;
         Button searchBT;
         Form close;
+        PictureBox logo;
 
         public Form1()
         {
@@ -34,6 +35,13 @@ namespace LAP
             Commons cm = new Commons();
 
             hashtable = new Hashtable();
+            hashtable.Add("size", new Size(50, 50));
+            hashtable.Add("point", new Point(500, 40));
+            hashtable.Add("pictureboxsizemode", PictureBoxSizeMode.Zoom);
+            logo = cm.getPictureBox(hashtable, this);
+            logo.Image = Properties.Resources.LAP_logo;
+
+            hashtable = new Hashtable();
             hashtable.Add("size", new Size(990, 770));
             hashtable.Add("point", new Point(0, 0));
             hashtable.Add("color", Color.Coral);
@@ -47,6 +55,8 @@ namespace LAP
             hashtable.Add("name", "search");
             hashtable.Add("enabled", true);
             tb = cm.getTextBox(hashtable, pn);
+            tb.Font = new Font("Tahoma", 15, FontStyle.Bold);
+            tb.BorderStyle = BorderStyle.None;
 
             hashtable = new Hashtable();
             hashtable.Add("size", new Size(100, 25));
@@ -56,6 +66,7 @@ namespace LAP
             hashtable.Add("text", "검색");
             hashtable.Add("click", (EventHandler)btn_click);
             searchBT = cm.getButton(hashtable, pn);
+            searchBT.FlatStyle=FlatStyle.Flat;
 
             hashtable = new Hashtable();
             hashtable.Add("size", new Size(990, 700));
@@ -76,7 +87,7 @@ namespace LAP
 
         private void btn_click(object o,EventArgs e)
         {
-            
+            MessageBox.Show("클릭");
         }
     }
 }
