@@ -18,7 +18,7 @@ namespace LAP_API.Controllers
     [ApiController]
     public class DataController : Controller
     {
-        string APIKEY = "RGAPI-bf6efaaa-6ad1-4f6b-bd92-56055b80a9d1";
+        string APIKEY = "RGAPI-fb0954b1-b359-4cc4-bfa9-54e6e4076b80";
         [Route("select_img")]
         [HttpGet]
         public ActionResult<ArrayList> select_img()

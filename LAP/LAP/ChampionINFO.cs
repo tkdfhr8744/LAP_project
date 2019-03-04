@@ -30,12 +30,11 @@ namespace LAP
             InitializeComponent();
             Load += ChampionINFO_Load;
         }
-        public ChampionINFO(Form1 f1, Panel championList)
+        public ChampionINFO(Form1 f1)
         {
             InitializeComponent();
             Load += ChampionINFO_Load;
             this.f1 = f1;
-            this.championList = championList;
         }
 
         private void ChampionINFO_Load(object sender, EventArgs e)
@@ -65,7 +64,7 @@ namespace LAP
             hashtable.Add("name", "rotationTitle");
             hashtable.Add("text", "금주 로테이션");
             rotationTitle = cm.getLabel(hashtable, rotationBack);
-            rotationTitle.Font = new Font("Tahoma", 15, FontStyle.Bold);
+            rotationTitle.Font = new Font("맑은 고딕", 15, FontStyle.Bold);
             RotationChamp();
 
             championlistpt();
@@ -144,7 +143,8 @@ namespace LAP
 
         private void pic_click(object sender, EventArgs e)
         {
-            Form1 f1 = new Form1();
+            //this.Dispose();
+            f1.champinfo();
         }
 
     }

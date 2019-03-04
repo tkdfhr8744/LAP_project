@@ -15,9 +15,11 @@ namespace LAP
     {
         Hashtable hashtable;
         TextBox tb;
-        Panel pn,championList;
+        Panel pn, championList;
         Button searchBT;
         Form close;
+        ChampionINFO ci;
+        championMoreInfo cmi;
         PictureBox logo;
 
         public Form1()
@@ -26,12 +28,14 @@ namespace LAP
             Load += Form1_Load;
             this.IsMdiContainer = true;
             this.MaximizeBox = false;
+            
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
             //LAP start
             this.Size = new Size(1000, 800);
+            this.FormBorderStyle = FormBorderStyle.FixedSingle;
             Commons cm = new Commons();
 
             hashtable = new Hashtable();
@@ -55,11 +59,11 @@ namespace LAP
             hashtable.Add("name", "search");
             hashtable.Add("enabled", true);
             tb = cm.getTextBox(hashtable, pn);
-            tb.Font = new Font("Tahoma", 15, FontStyle.Bold);
+            tb.Font = new Font("맑은 고딕", 15, FontStyle.Bold);
             tb.BorderStyle = BorderStyle.None;
 
             hashtable = new Hashtable();
-            hashtable.Add("size", new Size(100, 25));
+            hashtable.Add("size", new Size(100, 30));
             hashtable.Add("point", new Point(750, 100));
             hashtable.Add("color", Color.Gray);
             hashtable.Add("name", "searchbt");
@@ -75,12 +79,11 @@ namespace LAP
             hashtable.Add("name", "ListPN");
             championList = cm.getPanel(hashtable, pn);
 
-            ChampionINFO ci = new ChampionINFO(this, championList);
-            //ci = new ChampionINFO(this, championList);
+            ci = new ChampionINFO(this);
             ci.WindowState = FormWindowState.Maximized;
             ci.FormBorderStyle = FormBorderStyle.None;
             ci.MdiParent = this;
-            //ci.Dock = DockStyle.Fill;
+            ci.Dock = DockStyle.Fill;
             championList.Controls.Add(ci);
             ci.Show();
         }
@@ -89,5 +92,16 @@ namespace LAP
         {
             MessageBox.Show("클릭");
         }
+
+        public void champinfo()
+        {
+            close = new championMoreInfo(this);
+            close.WindowState = FormWindowState.Maximized;
+            close.FormBorderStyle = FormBorderStyle.None;
+            close.MdiParent = this;
+            close.Dock = DockStyle.Fill;
+            championList.Controls.Add(close);
+            close.Show();
+        }//챔피언리스트창에서 챔피언상세정보로이동
     }
 }
