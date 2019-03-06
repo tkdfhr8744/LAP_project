@@ -18,7 +18,8 @@ namespace LAP_API.Controllers
     [ApiController]
     public class DataController : Controller
     {
-        string APIKEY = "RGAPI-fb0954b1-b359-4cc4-bfa9-54e6e4076b80";
+        string APIKEY = "RGAPI-64885d85-dc8e-47ad-bcd8-4d6e6b98823a";
+
         [Route("select_img")]
         [HttpGet]
         public ActionResult<ArrayList> select_img()
@@ -57,11 +58,11 @@ namespace LAP_API.Controllers
                 }
             }
         }
+
         [Route("champion_img")]
         [HttpGet]
         public ActionResult<ArrayList> champion_img()
         {
-
             Database db = new Database();
             ArrayList list = new ArrayList();
             SqlDataReader sdr = db.Reader("p_championlist");
@@ -79,8 +80,7 @@ namespace LAP_API.Controllers
 
             db.ConnectionClose();
             return list;
-
-
         }
+
     }
 }

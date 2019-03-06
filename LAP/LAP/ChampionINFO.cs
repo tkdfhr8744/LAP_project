@@ -143,7 +143,6 @@ namespace LAP
 
         private void pic_click(object sender, EventArgs e)
         {
-            //this.Dispose();
             f1.champinfo();
         }
 

@@ -78,6 +78,7 @@
     <Compile Include="SummonerINFO.Designer.cs">
       <DependentUpon>SummonerINFO.cs</DependentUpon>
     </Compile>
+    <Compile Include="WebapiLibrary.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

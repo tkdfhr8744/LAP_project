@@ -1,10 +1,14 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -13,7 +17,7 @@ namespace LAP
 {
     public partial class Form1 : Form
     {
-        Hashtable hashtable;
+        Hashtable hashtable,ht;
         TextBox tb;
         Panel pn, championList;
         Button searchBT;
@@ -21,7 +25,7 @@ namespace LAP
         ChampionINFO ci;
         championMoreInfo cmi;
         PictureBox logo;
-
+        WebapiLibrary wal;
         public Form1()
         {
             InitializeComponent();
@@ -30,7 +34,6 @@ namespace LAP
             this.MaximizeBox = false;
             
         }
-
         private void Form1_Load(object sender, EventArgs e)
         {
             //LAP start
@@ -88,10 +91,53 @@ namespace LAP
             ci.Show();
         }
 
+        public string suminfo(string url)
+        {
+            string idKey = "";
+            using (WebClient webClient = new WebClient())
+            {
+                using (StreamReader streamReader = new StreamReader(webClient.OpenRead(url)))
+                {
+
+                    JObject jsonList = JsonConvert.DeserializeObject<JObject>(streamReader.ReadToEnd());
+
+                    for (int i = 0; i < jsonList.Count; i++)
+                    {
+                        ht = new Hashtable();
+                        foreach (JProperty jp in jsonList.Properties())
+                        {
+                            ht.Add(jp.Name, jp.Value);
+                            //Console.WriteLine(jp.Name + ":" + jp.Value);
+                            idKey = ht["id"].ToString();
+                           
+                        }
+                    }
+                }
+            }
+            return idKey;
+        }
+
         private void btn_click(object o,EventArgs e)
         {
-            MessageBox.Show("클릭");
+            wal = new WebapiLibrary();
+            string nameAPI = string.Format("https://kr.api.riotgames.com/lol/summoner/v4/summoners/by-name/{0}?api_key={1}",tb.Text, wal.myapikey());
+            
+            //suminfo(nameAPI);
+            //MessageBox.Show(suminfo(nameAPI));
+            close = new SummonerINFO(this, suminfo(nameAPI)); 
+            close.WindowState = FormWindowState.Maximized;
+            close.FormBorderStyle = FormBorderStyle.None;
+            close.MdiParent = this;
+            close.Dock = DockStyle.Fill;
+            championList.Controls.Add(close);
+            close.Show();
         }
+
+        public void SummonerInfo()
+        {
+
+        }
+
 
         public void champinfo()
         {
@@ -102,6 +148,6 @@ namespace LAP
             close.Dock = DockStyle.Fill;
             championList.Controls.Add(close);
             close.Show();
-        }//챔피언리스트창에서 챔피언상세정보로이동
+        }
     }
 }
