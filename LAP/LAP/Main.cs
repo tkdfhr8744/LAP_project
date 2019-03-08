@@ -32,8 +32,8 @@ namespace LAP
             Load += Form1_Load;
             this.IsMdiContainer = true;
             this.MaximizeBox = false;
-            
         }
+
         private void Form1_Load(object sender, EventArgs e)
         {
             //LAP start
@@ -98,7 +98,6 @@ namespace LAP
             {
                 using (StreamReader streamReader = new StreamReader(webClient.OpenRead(url)))
                 {
-
                     JObject jsonList = JsonConvert.DeserializeObject<JObject>(streamReader.ReadToEnd());
 
                     for (int i = 0; i < jsonList.Count; i++)
@@ -109,7 +108,6 @@ namespace LAP
                             ht.Add(jp.Name, jp.Value);
                             //Console.WriteLine(jp.Name + ":" + jp.Value);
                             idKey = ht["id"].ToString();
-                           
                         }
                     }
                 }
@@ -124,7 +122,7 @@ namespace LAP
             
             //suminfo(nameAPI);
             //MessageBox.Show(suminfo(nameAPI));
-            close = new SummonerINFO(this, suminfo(nameAPI)); 
+            close = new SummonerINFO(this, suminfo(nameAPI));
             close.WindowState = FormWindowState.Maximized;
             close.FormBorderStyle = FormBorderStyle.None;
             close.MdiParent = this;

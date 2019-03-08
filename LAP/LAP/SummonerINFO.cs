@@ -21,7 +21,7 @@ namespace LAP
         private Form1 f1;
         private Hashtable hashtable,ht;
         private PictureBox back,tierpic,pc1,pc2,pc3,pc4,pc5,pc6;
-        private Label SummonerName,KDA, WinLoss,TeamList,OpponentTeam,tiernum;
+        private Label SummonerName,tierlb,KDA,rankPoint,ranknum,mainpostition,WinLoss,TeamList,OpponentTeam,tiernum;
         private Chart chart1;
         private Panel chartpn,summonerLog,LogPn;
         private Commons cm;
@@ -34,7 +34,6 @@ namespace LAP
             Load += SummonerINFO_Load;
             this.f1 = f1;
             this.name = name;
-
         }
 
         public SummonerINFO()
@@ -81,8 +80,8 @@ namespace LAP
             hashtable.Add("color", Color.Yellow);
             hashtable.Add("name", "tier");
             hashtable.Add("text", ht["tier"]);
-            SummonerName = cm.getLabel(hashtable, this);
-            SummonerName.Font = new Font("맑은 고딕", 20, FontStyle.Bold);
+            tierlb = cm.getLabel(hashtable, this);
+            tierlb.Font = new Font("맑은 고딕", 20, FontStyle.Bold);
 
             hashtable = new Hashtable();
             hashtable.Add("size", new Size(100, 40));
@@ -90,17 +89,17 @@ namespace LAP
             hashtable.Add("color", Color.Yellow);
             hashtable.Add("name", "rank");
             hashtable.Add("text", ht["rank"]);
-            SummonerName = cm.getLabel(hashtable, this);
-            SummonerName.Font = new Font("맑은 고딕", 20, FontStyle.Bold);
-
+            rankPoint = cm.getLabel(hashtable, this);
+            rankPoint.Font = new Font("맑은 고딕", 20, FontStyle.Bold);
+            
             hashtable = new Hashtable();
             hashtable.Add("size", new Size(100, 40));
             hashtable.Add("point", new Point(450,110));
             hashtable.Add("color", Color.Yellow);
             hashtable.Add("name", "LP");
             hashtable.Add("text", ht["leaguePoints"]);
-            SummonerName = cm.getLabel(hashtable, this);
-            SummonerName.Font = new Font("맑은 고딕", 20, FontStyle.Bold);
+            ranknum = cm.getLabel(hashtable, this);
+            ranknum.Font = new Font("맑은 고딕", 20, FontStyle.Bold);
 
             hashtable = new Hashtable();
             hashtable.Add("size", new Size(150,150));
@@ -123,8 +122,8 @@ namespace LAP
             hashtable.Add("color", Color.Yellow);
             hashtable.Add("name", "position");
             hashtable.Add("text", ht["position"]);
-            SummonerName = cm.getLabel(hashtable, this);
-            SummonerName.Font = new Font("맑은 고딕", 20, FontStyle.Bold);
+            mainpostition = cm.getLabel(hashtable, this);
+            mainpostition.Font = new Font("맑은 고딕", 20, FontStyle.Bold);
 
             chart1 = new Chart();
             ChartArea chartArea1 = new ChartArea();
@@ -144,14 +143,10 @@ namespace LAP
             chartpn.Controls.Add(chart1);
             chart1.Series["Series1"].Points.AddXY(string.Format("승 {0}", 5), 5);
             chart1.Series["Series1"].Points[0].Color = Color.Blue;
-
+            
             chart1.Series["Series1"].Points.AddXY(string.Format("패 {0}", 6), 6);
             chart1.Series["Series1"].Points[0].Color = Color.Red;
             Loglist();
-
-
-            
-            
         }
 
         public Hashtable Summoner_info(string url)
@@ -177,7 +172,6 @@ namespace LAP
             }
             return ht;
         }
-
         private void Back_click(object sender, EventArgs e)
         {
             this.Dispose();
@@ -283,6 +277,11 @@ namespace LAP
 
                 }
             }
+        }
+        
+        private void txtExction()
+        {
+
         }
         
     }

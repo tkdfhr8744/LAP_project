@@ -18,7 +18,7 @@ namespace LAP_API.Controllers
     [ApiController]
     public class DataController : Controller
     {
-        string APIKEY = "RGAPI-64885d85-dc8e-47ad-bcd8-4d6e6b98823a";
+        string APIKEY = "RGAPI-09754a32-04e7-49a2-a518-fd0d285f7dd4";
 
         [Route("select_img")]
         [HttpGet]
@@ -29,6 +29,7 @@ namespace LAP_API.Controllers
 
             using (WebClient webClient = new WebClient())
             {
+
                 using (StreamReader streamReader = new StreamReader(webClient.OpenRead(rotationAPI)))
                 {
                     ArrayList list = new ArrayList();
