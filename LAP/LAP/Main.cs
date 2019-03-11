@@ -3,6 +3,7 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
@@ -17,7 +18,7 @@ namespace LAP
 {
     public partial class Form1 : Form
     {
-        Hashtable hashtable,ht;
+        Hashtable hashtable,ht, summonerTable;
         TextBox tb;
         Panel pn, championList;
         Button searchBT;
@@ -89,6 +90,39 @@ namespace LAP
             ci.Dock = DockStyle.Fill;
             championList.Controls.Add(ci);
             ci.Show();
+
+           
+        }
+
+        public bool Post(string url, Hashtable ht)
+        {
+            try
+            {
+                WebClient wc = new WebClient();
+                NameValueCollection nameValue = new NameValueCollection();
+
+                foreach (DictionaryEntry data in ht)
+                {
+                    nameValue.Add(data.Key.ToString(), data.Value.ToString());
+                }
+
+                byte[] result = wc.UploadValues(url, "POST", nameValue);
+                string resultStr = Encoding.UTF8.GetString(result);
+
+                if ("1" == resultStr)
+                {
+                    //MessageBox.Show("DB 성공");
+                }
+                else
+                {
+                    MessageBox.Show("DB 실패");
+                }
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
 
         public string suminfo(string url)
@@ -118,11 +152,14 @@ namespace LAP
         private void btn_click(object o,EventArgs e)
         {
             wal = new WebapiLibrary();
-            string nameAPI = string.Format("https://kr.api.riotgames.com/lol/summoner/v4/summoners/by-name/{0}?api_key={1}",tb.Text, wal.myapikey());
-            
+            //string nameAPI = string.Format("https://kr.api.riotgames.com/lol/summoner/v4/summoners/by-name/{0}?api_key={1}",tb.Text, wal.myapikey());
+            summonerTable = new Hashtable();
+            summonerTable.Add("summonerName", tb.Text);
+            Post("http://gdc3.gudi.kr:42001/champ_image", summonerTable);
+
             //suminfo(nameAPI);
             //MessageBox.Show(suminfo(nameAPI));
-            close = new SummonerINFO(this, suminfo(nameAPI));
+            close = new SummonerINFO(this);
             close.WindowState = FormWindowState.Maximized;
             close.FormBorderStyle = FormBorderStyle.None;
             close.MdiParent = this;

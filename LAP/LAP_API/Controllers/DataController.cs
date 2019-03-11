@@ -18,8 +18,8 @@ namespace LAP_API.Controllers
     [ApiController]
     public class DataController : Controller
     {
-        string APIKEY = "RGAPI-09754a32-04e7-49a2-a518-fd0d285f7dd4";
-
+        string APIKEY = "RGAPI-d494941d-4a3c-44b5-8c68-63bfc8cda4ff";
+        
         [Route("select_img")]
         [HttpGet]
         public ActionResult<ArrayList> select_img()
@@ -29,7 +29,6 @@ namespace LAP_API.Controllers
 
             using (WebClient webClient = new WebClient())
             {
-
                 using (StreamReader streamReader = new StreamReader(webClient.OpenRead(rotationAPI)))
                 {
                     ArrayList list = new ArrayList();
@@ -82,6 +81,18 @@ namespace LAP_API.Controllers
             db.ConnectionClose();
             return list;
         }
+
+        [Route("champ_image")]
+        [HttpPost]
+        public ActionResult<string> champ_image([FromForm]string summonerName)
+        {
+            service sv = new service();
+            Console.WriteLine(summonerName);
+            string nameAPI = string.Format("https://kr.api.riotgames.com/lol/summoner/v4/summoners/by-name/{0}?api_key={1}", summonerName, APIKEY);
+            
+            return nameAPI;
+        }
+
 
     }
 }
