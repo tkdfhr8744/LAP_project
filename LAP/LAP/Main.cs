@@ -18,7 +18,7 @@ namespace LAP
 {
     public partial class Form1 : Form
     {
-        Hashtable hashtable,ht, summonerTable;
+        Hashtable hashtable, ht, summonerTable;
         TextBox tb;
         Panel pn, championList;
         Button searchBT;
@@ -74,7 +74,7 @@ namespace LAP
             hashtable.Add("text", "검색");
             hashtable.Add("click", (EventHandler)btn_click);
             searchBT = cm.getButton(hashtable, pn);
-            searchBT.FlatStyle=FlatStyle.Flat;
+            searchBT.FlatStyle = FlatStyle.Flat;
 
             hashtable = new Hashtable();
             hashtable.Add("size", new Size(990, 700));
@@ -90,8 +90,6 @@ namespace LAP
             ci.Dock = DockStyle.Fill;
             championList.Controls.Add(ci);
             ci.Show();
-
-           
         }
 
         public bool Post(string url, Hashtable ht)
@@ -149,17 +147,15 @@ namespace LAP
             return idKey;
         }
 
-        private void btn_click(object o,EventArgs e)
+        private void btn_click(object o, EventArgs e)
         {
             wal = new WebapiLibrary();
-            //string nameAPI = string.Format("https://kr.api.riotgames.com/lol/summoner/v4/summoners/by-name/{0}?api_key={1}",tb.Text, wal.myapikey());
-            summonerTable = new Hashtable();
-            summonerTable.Add("summonerName", tb.Text);
-            Post("http://gdc3.gudi.kr:42001/champ_image", summonerTable);
-
-            //suminfo(nameAPI);
+            string nameAPI = string.Format("https://kr.api.riotgames.com/lol/summoner/v4/summoners/by-name/{0}?api_key={1}", tb.Text, wal.myapikey());
+            //summonerTable = new Hashtable();
+            //summonerTable.Add("summonerName", tb.Text);
+            //Post("http://gdc3.gudi.kr:42001/champ_image", summonerTable);
             //MessageBox.Show(suminfo(nameAPI));
-            close = new SummonerINFO(this);
+            close = new SummonerINFO(this, suminfo(nameAPI));
             close.WindowState = FormWindowState.Maximized;
             close.FormBorderStyle = FormBorderStyle.None;
             close.MdiParent = this;
@@ -167,12 +163,6 @@ namespace LAP
             championList.Controls.Add(close);
             close.Show();
         }
-
-        public void SummonerInfo()
-        {
-
-        }
-
 
         public void champinfo()
         {

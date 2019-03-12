@@ -41,7 +41,6 @@ namespace LAP
         {
             cm = new Commons();
             this.BackColor = Color.White;
-
             hashtable = new Hashtable();
             hashtable.Add("size", new Size(990, 100));
             hashtable.Add("point", new Point(0, 0));

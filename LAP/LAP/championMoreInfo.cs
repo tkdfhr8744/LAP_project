@@ -55,7 +55,7 @@ namespace LAP
             hashtable = new Hashtable();
             hashtable.Add("size", new Size(620, 200));
             hashtable.Add("point", new Point(90, 220));
-            hashtable.Add("color", Color.White);
+            hashtable.Add("color", Color.Black);
             hashtable.Add("name", "championlist");
             pn = cm.getPanel(hashtable, this);
             pn.BorderStyle = BorderStyle.FixedSingle;

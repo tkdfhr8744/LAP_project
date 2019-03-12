@@ -103,6 +103,54 @@ namespace LAP_API.Modules
             else
                 return null;
         }
+
+        public SqlDataReader itemReader(string sql, int num)
+        {
+            if (status)
+            {
+                try
+                {
+                    SqlCommand comm = new SqlCommand();
+                    comm.CommandText = sql;
+                    comm.Connection = conn;
+                    comm.CommandType = CommandType.StoredProcedure;
+                    comm.Parameters.Add("@iKey", SqlDbType.Int);
+                    comm.Parameters["@iKey"].Value = num;
+                    return comm.ExecuteReader();
+                }
+                catch
+                {
+                    Console.WriteLine("에러");
+                    return null;
+                }
+            }
+            else
+                return null;
+        }
+
+        public SqlDataReader Reader3(string sql, int num)
+        {
+            if (status)
+            {
+                try
+                {
+                    SqlCommand comm = new SqlCommand();
+                    comm.CommandText = sql;
+                    comm.Connection = conn;
+                    comm.CommandType = CommandType.StoredProcedure;
+                    comm.Parameters.Add("@sKey", SqlDbType.Int);
+                    comm.Parameters["@sKey"].Value = num;
+                    return comm.ExecuteReader();
+                }
+                catch
+                {
+                    Console.WriteLine("에러");
+                    return null;
+                }
+            }
+            else
+                return null;
+        }
         public SqlDataReader Reader(string sql)
         {
             if (status)
