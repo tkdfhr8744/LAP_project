@@ -31,7 +31,17 @@ namespace LAP
             tergat.Controls.Add(pictureBox);
             return pictureBox;
         }
-
+        public PictureBox getPictureBox2(Hashtable hashtable, Control tergat)
+        {
+            PictureBox pictureBox = new PictureBox();
+            pictureBox.Size = (Size)hashtable["size"];
+            pictureBox.Location = (Point)hashtable["point"];
+            pictureBox.Name = hashtable["name"].ToString();
+            pictureBox.Click += (EventHandler)hashtable["click"];
+            pictureBox.SizeMode = (PictureBoxSizeMode)hashtable["pictureboxsizemode"];
+            tergat.Controls.Add(pictureBox);
+            return pictureBox;
+        }
         public Panel getPanel(Hashtable hashtable, Control parentDomain)
         {
             Panel panel = new Panel();

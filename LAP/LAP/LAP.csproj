@@ -64,6 +64,7 @@
       <DependentUpon>championMoreInfo.cs</DependentUpon>
     </Compile>
     <Compile Include="Commons.cs" />
+    <Compile Include="FormManager.cs" />
     <Compile Include="Main.cs">
       <SubType>Form</SubType>
     </Compile>

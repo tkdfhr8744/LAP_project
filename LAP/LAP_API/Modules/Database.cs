@@ -128,6 +128,31 @@ namespace LAP_API.Modules
                 return null;
         }
 
+        public SqlDataReader imginfo(string sql,string num)
+        {
+            if (status)
+            {
+                try
+                {
+                    SqlCommand comm = new SqlCommand();
+                    comm.CommandText = sql;
+                    comm.Connection = conn;
+                    comm.CommandType = CommandType.StoredProcedure;
+                    comm.Parameters.Add("@rImage",SqlDbType.VarChar);
+                    Console.WriteLine(num);
+                    comm.Parameters["@rImage"].Value = num;
+                    return comm.ExecuteReader();
+                }
+                catch
+                {
+                    Console.WriteLine("에러");
+                    return null;
+                }
+            }
+            else
+                return null;
+        }
+
         public SqlDataReader Reader3(string sql, int num)
         {
             if (status)

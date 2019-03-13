@@ -49,7 +49,7 @@ namespace LAP
             rotationBack = cm.getPanel2(hashtable, this);
 
             hashtable = new Hashtable();
-            hashtable.Add("size", new Size(990, 512));
+            hashtable.Add("size", new Size(985, 512));
             hashtable.Add("point", new Point(0, 100));
             hashtable.Add("color", Color.DarkBlue);
             hashtable.Add("name", "championlist");
@@ -102,7 +102,8 @@ namespace LAP
                     hashtable.Add("point", new Point(18 + margin, 20 + height));
                     hashtable.Add("pictureboxsizemode", PictureBoxSizeMode.Zoom);
                     hashtable.Add("click", (EventHandler)pic_click);
-                    pc2 = cm.getPictureBox(hashtable, championList);
+                    hashtable.Add("name", string.Format("{0}",count+1));
+                    pc2 = cm.getPictureBox2(hashtable, championList);
                     pc2.Cursor = Cursors.Hand;
                     Post("http://gdc3.gudi.kr:42001/champion_img", pc2, count);
                     margin += 95;
@@ -142,7 +143,8 @@ namespace LAP
 
         private void pic_click(object sender, EventArgs e)
         {
-            f1.champinfo();
+            PictureBox pc = (PictureBox)sender;
+            f1.champinfo(pc.ImageLocation);
         }
 
     }

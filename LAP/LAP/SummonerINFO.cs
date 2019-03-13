@@ -65,7 +65,8 @@ namespace LAP
             hashtable.Add("click", (EventHandler)Back_click);
             back = cm.getPictureBox(hashtable, this);
             back.Image = Properties.Resources.images;
-
+            back.Cursor = Cursors.Hand;
+            
             hashtable = new Hashtable();
             hashtable.Add("size", new Size(150, 150));
             hashtable.Add("point", new Point(115, 60));

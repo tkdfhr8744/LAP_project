@@ -25,7 +25,7 @@ namespace LAP
         Form close;
         ChampionINFO ci;
         championMoreInfo cmi;
-        PictureBox logo;
+        PictureBox logo, back;
         WebapiLibrary wal;
         public Form1()
         {
@@ -41,7 +41,16 @@ namespace LAP
             this.Size = new Size(1000, 800);
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
             Commons cm = new Commons();
-
+            /*
+            cm = new Commons();
+            hashtable = new Hashtable();
+            hashtable.Add("size", new Size(50, 50));
+            hashtable.Add("point", new Point(0, 0));
+            hashtable.Add("pictureboxsizemode", PictureBoxSizeMode.Zoom);
+            hashtable.Add("click", (EventHandler)Back_click);
+            back = cm.getPictureBox(hashtable, this);
+            back.Image = Properties.Resources.images;
+            */
             hashtable = new Hashtable();
             hashtable.Add("size", new Size(50, 50));
             hashtable.Add("point", new Point(500, 40));
@@ -52,7 +61,7 @@ namespace LAP
             hashtable = new Hashtable();
             hashtable.Add("size", new Size(990, 770));
             hashtable.Add("point", new Point(0, 0));
-            hashtable.Add("color", Color.Coral);
+            hashtable.Add("color", Color.WhiteSmoke);
             hashtable.Add("name", "BackgroundPN");
             pn = cm.getPanel2(hashtable, this);
 
@@ -91,7 +100,7 @@ namespace LAP
             championList.Controls.Add(ci);
             ci.Show();
         }
-
+        
         public bool Post(string url, Hashtable ht)
         {
             try
@@ -151,10 +160,6 @@ namespace LAP
         {
             wal = new WebapiLibrary();
             string nameAPI = string.Format("https://kr.api.riotgames.com/lol/summoner/v4/summoners/by-name/{0}?api_key={1}", tb.Text, wal.myapikey());
-            //summonerTable = new Hashtable();
-            //summonerTable.Add("summonerName", tb.Text);
-            //Post("http://gdc3.gudi.kr:42001/champ_image", summonerTable);
-            //MessageBox.Show(suminfo(nameAPI));
             close = new SummonerINFO(this, suminfo(nameAPI));
             close.WindowState = FormWindowState.Maximized;
             close.FormBorderStyle = FormBorderStyle.None;
@@ -164,9 +169,9 @@ namespace LAP
             close.Show();
         }
 
-        public void champinfo()
+        public void champinfo(string index)
         {
-            close = new championMoreInfo(this);
+            close = new championMoreInfo(this,index);
             close.WindowState = FormWindowState.Maximized;
             close.FormBorderStyle = FormBorderStyle.None;
             close.MdiParent = this;

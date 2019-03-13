@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace LAP
 {
-    class WebapiLibrary
+    class FormManager
     {
-        public string myapikey()
+        public void Formout(Form target)
         {
-            string apikey = "RGAPI-ce6769b1-a676-4c6d-a142-288ac6982a60";
-            return apikey;
+            target.Dispose();
         }
     }
 }

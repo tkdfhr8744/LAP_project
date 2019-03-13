@@ -18,7 +18,7 @@ namespace LAP_API.Controllers
     [ApiController]
     public class DataController : Controller
     {
-        string APIKEY = "RGAPI-cc2e8477-0b5b-4c6d-9ad5-3b6cea4c8949";
+        string APIKEY = "RGAPI-ce6769b1-a676-4c6d-a142-288ac6982a60";
 
         [Route("select_img")]
         [HttpGet]
@@ -197,10 +197,28 @@ namespace LAP_API.Controllers
             }
             db.ReaderClose(sdr);
             db.ConnectionClose();
-            Console.WriteLine(temp+"-----------------");
             return temp;
         }
 
+        [Route("champinfo")]
+        [HttpPost]
+        public ActionResult<string> champinfo([FromForm]string id)
+        {
+            Database db = new Database();
+            ArrayList list = new ArrayList();
+            SqlDataReader sdr = db.imginfo("p_champinfo", id);
 
+            string temp = "";
+            while (sdr.Read())
+            {
+                for (int j = 0; j < sdr.FieldCount; j++)
+                {
+                    temp = sdr.GetValue(j).ToString();
+                }
+            }
+            db.ReaderClose(sdr);
+            db.ConnectionClose();
+            return temp;
+        }
     }
 }
