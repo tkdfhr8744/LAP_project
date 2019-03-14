@@ -18,7 +18,7 @@ namespace LAP
 {
     public partial class Form1 : Form
     {
-        Hashtable hashtable, ht, summonerTable;
+        Hashtable hashtable, ht;
         TextBox tb;
         Panel pn, championList;
         Button searchBT;
@@ -40,17 +40,10 @@ namespace LAP
             //LAP start
             this.Size = new Size(1000, 800);
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
+            this.Text = "LAP";
+            
             Commons cm = new Commons();
-            /*
-            cm = new Commons();
-            hashtable = new Hashtable();
-            hashtable.Add("size", new Size(50, 50));
-            hashtable.Add("point", new Point(0, 0));
-            hashtable.Add("pictureboxsizemode", PictureBoxSizeMode.Zoom);
-            hashtable.Add("click", (EventHandler)Back_click);
-            back = cm.getPictureBox(hashtable, this);
-            back.Image = Properties.Resources.images;
-            */
+
             hashtable = new Hashtable();
             hashtable.Add("size", new Size(50, 50));
             hashtable.Add("point", new Point(500, 40));
@@ -147,7 +140,6 @@ namespace LAP
                         foreach (JProperty jp in jsonList.Properties())
                         {
                             ht.Add(jp.Name, jp.Value);
-                            //Console.WriteLine(jp.Name + ":" + jp.Value);
                             idKey = ht["id"].ToString();
                         }
                     }
@@ -159,14 +151,24 @@ namespace LAP
         private void btn_click(object o, EventArgs e)
         {
             wal = new WebapiLibrary();
-            string nameAPI = string.Format("https://kr.api.riotgames.com/lol/summoner/v4/summoners/by-name/{0}?api_key={1}", tb.Text, wal.myapikey());
-            close = new SummonerINFO(this, suminfo(nameAPI));
-            close.WindowState = FormWindowState.Maximized;
-            close.FormBorderStyle = FormBorderStyle.None;
-            close.MdiParent = this;
-            close.Dock = DockStyle.Fill;
-            championList.Controls.Add(close);
-            close.Show();
+            try
+            {
+                string nameAPI = string.Format("https://kr.api.riotgames.com/lol/summoner/v4/summoners/by-name/{0}?api_key={1}", tb.Text, wal.myapikey());
+                close = new SummonerINFO(this, suminfo(nameAPI));
+                close.WindowState = FormWindowState.Maximized;
+                close.FormBorderStyle = FormBorderStyle.None;
+                close.MdiParent = this;
+                close.Dock = DockStyle.Fill;
+                championList.Controls.Add(close);
+                close.Show();
+            }
+                
+            catch
+            {
+                MessageBox.Show("올바른 아이디를 입력해주세요.");
+                this.Show();
+            }
+           
         }
 
         public void champinfo(string index)

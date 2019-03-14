@@ -10,7 +10,7 @@ namespace LAP
     {
         public string myapikey()
         {
-            string apikey = "RGAPI-ce6769b1-a676-4c6d-a142-288ac6982a60";
+            string apikey = "RGAPI-7f04c800-f187-46c3-b413-9af01f00d437";
             return apikey;
         }
     }

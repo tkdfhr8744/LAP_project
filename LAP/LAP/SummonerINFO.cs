@@ -20,9 +20,9 @@ namespace LAP
     public partial class SummonerINFO : Form
     {
         private Form1 f1;
-        private Hashtable hashtable, ht, hta, accountTable, gameIDTable, myindexTable, myitem,itemtable, teamname;
-        private PictureBox back, tierpic, pc1, pc2, pc3, pc4, pc5, pc6;
-        private Label SummonerName, tierlb, KDA, rankPoint, ranknum, mainpostition, WinLoss, TeamList, OpponentTeam, tiernum;
+        private Hashtable hashtable, ht, hta, accountTable, gameIDTable, myitem,itemtable, teamname;
+        private PictureBox back, tierpic, pc1, pc2, pc3, pc4, pc5;
+        private Label SummonerName, tierlb, KDA, rankPoint, ranknum, mainpostition, WinLoss, TeamList;
         private Chart chart1;
         private Panel chartpn, summonerLog, LogPn;
         private Commons cm;
@@ -35,6 +35,7 @@ namespace LAP
         private string matchlog = "";
         private string[] namelist;
         private string[] champlist;
+        private int winCount, lossCount;
         public SummonerINFO(Form1 f1, string name)
         {
             InitializeComponent();
@@ -55,7 +56,7 @@ namespace LAP
             this.BackColor = Color.White;
             Summoner_info(url);
             accountapi = string.Format("https://kr.api.riotgames.com/lol/summoner/v4/summoners/by-name/{0}?api_key={1}", ht["summonerName"].ToString(), wal.myapikey());
-            matchlist = string.Format("https://kr.api.riotgames.com/lol/match/v4/matchlists/by-account/{0}?endIndex=20&api_key={1}", accountfuc(accountapi), wal.myapikey());
+            matchlist = string.Format("https://kr.api.riotgames.com/lol/match/v4/matchlists/by-account/{0}?endIndex=10&api_key={1}", accountfuc(accountapi), wal.myapikey());
 
             cm = new Commons();
             hashtable = new Hashtable();
@@ -78,7 +79,7 @@ namespace LAP
             hashtable = new Hashtable();
             hashtable.Add("size", new Size(300, 40));
             hashtable.Add("point", new Point(270, 60));
-            hashtable.Add("color", Color.Yellow);
+            hashtable.Add("color", Color.White);
             hashtable.Add("name", "summonerName");
             //hashtable.Add("text", "서머너이름");
             hashtable.Add("text", ht["summonerName"]);
@@ -88,7 +89,7 @@ namespace LAP
             hashtable = new Hashtable();
             hashtable.Add("size", new Size(150, 40));
             hashtable.Add("point", new Point(270, 110));
-            hashtable.Add("color", Color.Yellow);
+            hashtable.Add("color", Color.White);
             hashtable.Add("name", "tier");
             //hashtable.Add("text", "티어");
             hashtable.Add("text", ht["tier"]);
@@ -98,7 +99,7 @@ namespace LAP
             hashtable = new Hashtable();
             hashtable.Add("size", new Size(30, 40));
             hashtable.Add("point", new Point(430, 110));
-            hashtable.Add("color", Color.Yellow);
+            hashtable.Add("color", Color.White);
             hashtable.Add("name", "rank");
             //hashtable.Add("text", "랭크");
             hashtable.Add("text", ht["rank"]);
@@ -108,7 +109,7 @@ namespace LAP
             hashtable = new Hashtable();
             hashtable.Add("size", new Size(100, 40));
             hashtable.Add("point", new Point(470, 110));
-            hashtable.Add("color", Color.Yellow);
+            hashtable.Add("color", Color.White);
             hashtable.Add("name", "LP");
             //hashtable.Add("text", "포인트");
             hashtable.Add("text", ht["leaguePoints"]);
@@ -125,7 +126,7 @@ namespace LAP
             hashtable = new Hashtable();
             hashtable.Add("size", new Size(985, 400));
             hashtable.Add("point", new Point(0, 220));
-            hashtable.Add("color", Color.Coral);
+            hashtable.Add("color", Color.White);
             hashtable.Add("name", "summonerLOG");
             summonerLog = cm.getPanel(hashtable, this);
             summonerLog.AutoScroll = true;
@@ -133,13 +134,19 @@ namespace LAP
             hashtable = new Hashtable();
             hashtable.Add("size", new Size(150, 40));
             hashtable.Add("point", new Point(270, 160));
-            hashtable.Add("color", Color.Yellow);
+            hashtable.Add("color", Color.White);
             hashtable.Add("name", "position");
             //hashtable.Add("text", "포지션");
             hashtable.Add("text", ht["position"]);
             mainpostition = cm.getLabel(hashtable, this);
             mainpostition.Font = new Font("맑은 고딕", 20, FontStyle.Bold);
 
+
+            gameID_PULL(matchlist);
+        }
+
+        private void grape_img()
+        {
             chart1 = new Chart();
             ChartArea chartArea1 = new ChartArea();
             Series series1 = new Series();
@@ -156,14 +163,14 @@ namespace LAP
             chart1.Series.Add(series1);
             chart1.Series["Series1"].IsValueShownAsLabel = false;
             chartpn.Controls.Add(chart1);
-            chart1.Series["Series1"].Points.AddXY(string.Format("승 {0}", 5), 5);
+            chart1.Series["Series1"].Points.AddXY(string.Format("승 {0}", winCount), winCount);
             chart1.Series["Series1"].Points[0].Color = Color.Blue;
 
-            chart1.Series["Series1"].Points.AddXY(string.Format("패 {0}", 6), 6);
+            chart1.Series["Series1"].Points.AddXY(string.Format("패 {0}", lossCount), lossCount);
             chart1.Series["Series1"].Points[0].Color = Color.Red;
 
-            Loglist();
         }
+
         //소환사 리그정보 해쉬테이블로 담아온것
         public Hashtable Summoner_info(string url)
         {
@@ -217,9 +224,11 @@ namespace LAP
             return accountID;
         }
 
+        /*
         //각 게임 ID 받는 메소드
         public string gameID_PULL(string url, int i)
         {
+            //Loglist(gameNo);
             using (WebClient webClient = new WebClient())
             {
                 using (StreamReader streamReader = new StreamReader(webClient.OpenRead(url)))
@@ -239,6 +248,27 @@ namespace LAP
                         gameID = gameIDTable["gameId"].ToString();
                     }
                     return gameID;
+                }
+            }
+        }*/
+
+        public void gameID_PULL(string url)
+        {
+            using (WebClient webClient = new WebClient())
+            {
+                using (StreamReader streamReader = new StreamReader(webClient.OpenRead(url)))
+                {
+                    JObject jsonList = JsonConvert.DeserializeObject<JObject>(streamReader.ReadToEnd());
+                    JToken jt = jsonList.GetValue("matches");
+                    JArray ja = jt.Value<JArray>();
+                    string[] arr = new string[ja.Count];
+                    for (int k = 0; k < ja.Count; k++)
+                    {
+                        JObject jo = (JObject)ja[k];
+                        JToken jt2 = jo.GetValue("gameId");
+                        //MessageBox.Show(jt2.ToString());
+                        Loglist(jt2.ToString(),k);
+                    }
                 }
             }
         }
@@ -332,18 +362,9 @@ namespace LAP
                         {
                             itemtable.Add(jp2.Name, jp2.Value);
                         }
-                        /*
-                        Console.WriteLine(itemtable["item0"]);
-                        Console.WriteLine(itemtable["item1"]);
-                        Console.WriteLine(itemtable["item2"]);
-                        Console.WriteLine(itemtable["item3"]);
-                        Console.WriteLine(itemtable["item4"]);
-                        Console.WriteLine(itemtable["item5"]);
-                        Console.WriteLine(itemtable["item6"]);
-                        Console.WriteLine(itemtable["win"]);
-                        Console.WriteLine(itemtable["kills"] + "/" + itemtable["deaths"] + "/" + itemtable["assists"]);
-                        Console.WriteLine("-----------------------------------");
-                        */
+                        
+                        if (itemtable["win"].ToString() == "True") winCount++;
+                        else lossCount++;
                     }
                     return itemtable;
                 }
@@ -511,12 +532,12 @@ namespace LAP
             }
         }
 
-        private void Loglist()
+        private void Loglist(string gameNo,int i)
         {
-            for (int i = 0; i < 10; i++)
-            {
-                matchlog = string.Format("https://kr.api.riotgames.com/lol/match/v4/matches/{0}?api_key={1}", gameID_PULL(matchlist, i), wal.myapikey());
-
+            //for (int i = 0; i < 10; i++)
+            //{
+                matchlog = string.Format("https://kr.api.riotgames.com/lol/match/v4/matches/{0}?api_key={1}", gameNo, wal.myapikey());
+                //matchlog = string.Format("https://kr.api.riotgames.com/lol/match/v4/matches/{0}?api_key={1}", gameID_PULL(matchlist, i), wal.myapikey());
                 myitem_spell(matchlog, gameinfofuc(matchlog));
                 item_select(matchlog, gameinfofuc(matchlog));
                 string kdainfo = itemtable["kills"].ToString() + "/" + itemtable["deaths"].ToString() + "/" + itemtable["assists"].ToString();
@@ -524,8 +545,8 @@ namespace LAP
                 hashtable = new Hashtable();
                 hashtable.Add("size", new Size(750, 160));
                 hashtable.Add("point", new Point(115, 5 + (i * 170)));
-                if (itemtable["win"].ToString() =="True") hashtable.Add("color", Color.Aqua);
-                else if(itemtable["win"].ToString() == "False") hashtable.Add("color", Color.Red);
+                if (itemtable["win"].ToString() =="True") hashtable.Add("color", Color.FromArgb(163,207,236));
+                else if(itemtable["win"].ToString() == "False") hashtable.Add("color", Color.FromArgb(226,182,176));
                 hashtable.Add("name", "LOG");
                 LogPn = cm.getPanel(hashtable, summonerLog);
 
@@ -533,8 +554,9 @@ namespace LAP
                 hashtable.Add("size", new Size(40, 20));
                 hashtable.Add("point", new Point(5, 60));
                 hashtable.Add("name", "WinLoss");
-                hashtable.Add("color", Color.Yellow);
-                if (itemtable["win"].ToString() == "True"){hashtable.Add("text", "승리");}
+                if (itemtable["win"].ToString() == "True") hashtable.Add("color", Color.FromArgb(163,207,236));
+                else if (itemtable["win"].ToString() == "False") hashtable.Add("color", Color.FromArgb(226,182, 176));
+                if (itemtable["win"].ToString() == "True") hashtable.Add("text", "승리");
                 else if(itemtable["win"].ToString()=="False") hashtable.Add("text", "패배");
                 WinLoss = cm.getLabel(hashtable, LogPn);
                 WinLoss.Font = new Font("맑은 고딕", 10, FontStyle.Bold);
@@ -566,13 +588,14 @@ namespace LAP
                 hashtable = new Hashtable();
                 hashtable.Add("size", new Size(120, 25));
                 hashtable.Add("point", new Point(155, 60));
-                hashtable.Add("color", Color.Yellow);
+                if (itemtable["win"].ToString() == "True") hashtable.Add("color", Color.FromArgb(163,207,236));
+                else if (itemtable["win"].ToString() == "False") hashtable.Add("color", Color.FromArgb(226, 182, 176));
                 hashtable.Add("name", "champName");
                 hashtable.Add("text", kdainfo);
                 KDA = cm.getLabel(hashtable, LogPn);
                 KDA.Font = new Font("맑은 고딕", 15, FontStyle.Bold);
 
-                // 아이탬리스트
+                // 아이템리스트
                 for (int j = 0; j < 7; j++)
                 {
                     hashtable = new Hashtable();
@@ -602,7 +625,8 @@ namespace LAP
                         hashtable = new Hashtable();
                         hashtable.Add("size", new Size(70, 25));
                         hashtable.Add("point", new Point(556+(k*74), 5 + (t * 30)));
-                        hashtable.Add("color", Color.Yellow);
+                        if (itemtable["win"].ToString() == "True") hashtable.Add("color", Color.FromArgb(163,207,236));
+                        else if (itemtable["win"].ToString() == "False") hashtable.Add("color", Color.FromArgb(226,182,176));
                         hashtable.Add("name", "TeamList");
                         if (k == 1) hashtable.Add("text", namelist[5 + t]);
                         else hashtable.Add("text",namelist[t]);
@@ -610,7 +634,8 @@ namespace LAP
                         TeamList.Font = new Font("맑은 고딕", 10, FontStyle.Bold);
                     }
                 }
-            }
+            //}
+            grape_img();
         }
     }
 }

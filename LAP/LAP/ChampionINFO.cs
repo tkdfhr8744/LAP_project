@@ -18,12 +18,12 @@ namespace LAP
 {
     public partial class ChampionINFO : Form
     {
-        Form1 f1;
-        Panel championList, rotationBack;
-        Hashtable hashtable;
-        Label rotationTitle;
-        PictureBox pc1, pc2;
-        Commons cm;
+        private Form1 f1;
+        private Panel championList, rotationBack;
+        private Hashtable hashtable;
+        private Label rotationTitle;
+        private PictureBox pc1, pc2;
+        private Commons cm;
 
         public ChampionINFO()
         {
