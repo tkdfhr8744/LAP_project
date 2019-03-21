@@ -119,7 +119,7 @@ namespace LAP
             hashtable = new Hashtable();
             hashtable.Add("size", new Size(150, 150));
             hashtable.Add("point", new Point(600, 60));
-            hashtable.Add("color", Color.Coral);
+            hashtable.Add("color", Color.White);
             hashtable.Add("name", "BackgroundPN");
             chartpn = cm.getPanel(hashtable, this);
 
@@ -262,13 +262,14 @@ namespace LAP
                     JToken jt = jsonList.GetValue("matches");
                     JArray ja = jt.Value<JArray>();
                     string[] arr = new string[ja.Count];
-                    for (int k = 0; k < ja.Count; k++)
+                    for (int k = 0; k < 5; k++)
                     {
                         JObject jo = (JObject)ja[k];
                         JToken jt2 = jo.GetValue("gameId");
                         //MessageBox.Show(jt2.ToString());
                         Loglist(jt2.ToString(),k);
                     }
+                    grape_img();
                 }
             }
         }
@@ -362,7 +363,7 @@ namespace LAP
                         {
                             itemtable.Add(jp2.Name, jp2.Value);
                         }
-                        
+
                         if (itemtable["win"].ToString() == "True") winCount++;
                         else lossCount++;
                     }
@@ -534,8 +535,6 @@ namespace LAP
 
         private void Loglist(string gameNo,int i)
         {
-            //for (int i = 0; i < 10; i++)
-            //{
                 matchlog = string.Format("https://kr.api.riotgames.com/lol/match/v4/matches/{0}?api_key={1}", gameNo, wal.myapikey());
                 //matchlog = string.Format("https://kr.api.riotgames.com/lol/match/v4/matches/{0}?api_key={1}", gameID_PULL(matchlist, i), wal.myapikey());
                 myitem_spell(matchlog, gameinfofuc(matchlog));
@@ -634,8 +633,7 @@ namespace LAP
                         TeamList.Font = new Font("맑은 고딕", 10, FontStyle.Bold);
                     }
                 }
-            //}
-            grape_img();
+            //grape_img();
         }
     }
 }

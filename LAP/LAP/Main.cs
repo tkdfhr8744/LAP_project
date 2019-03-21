@@ -45,8 +45,8 @@ namespace LAP
             Commons cm = new Commons();
 
             hashtable = new Hashtable();
-            hashtable.Add("size", new Size(50, 50));
-            hashtable.Add("point", new Point(500, 40));
+            hashtable.Add("size", new Size(100,100));
+            hashtable.Add("point", new Point(40, 20));
             hashtable.Add("pictureboxsizemode", PictureBoxSizeMode.Zoom);
             logo = cm.getPictureBox(hashtable, this);
             logo.Image = Properties.Resources.LAP_logo;
@@ -54,23 +54,23 @@ namespace LAP
             hashtable = new Hashtable();
             hashtable.Add("size", new Size(990, 770));
             hashtable.Add("point", new Point(0, 0));
-            hashtable.Add("color", Color.WhiteSmoke);
+            hashtable.Add("color", Color.Black);
             hashtable.Add("name", "BackgroundPN");
             pn = cm.getPanel2(hashtable, this);
 
             hashtable = new Hashtable();
             hashtable.Add("width", "500");
-            hashtable.Add("point", new Point(245, 100));
+            hashtable.Add("point", new Point(245, 70));
             hashtable.Add("color", Color.White);
             hashtable.Add("name", "search");
             hashtable.Add("enabled", true);
             tb = cm.getTextBox(hashtable, pn);
-            tb.Font = new Font("맑은 고딕", 15, FontStyle.Bold);
+            tb.Font = new Font("맑은 고딕", 20, FontStyle.Bold);
             tb.BorderStyle = BorderStyle.None;
 
             hashtable = new Hashtable();
-            hashtable.Add("size", new Size(100, 30));
-            hashtable.Add("point", new Point(750, 100));
+            hashtable.Add("size", new Size(100, 38));
+            hashtable.Add("point", new Point(750, 70));
             hashtable.Add("color", Color.Gray);
             hashtable.Add("name", "searchbt");
             hashtable.Add("text", "검색");

@@ -44,14 +44,14 @@ namespace LAP
             hashtable = new Hashtable();
             hashtable.Add("size", new Size(990, 100));
             hashtable.Add("point", new Point(0, 0));
-            hashtable.Add("color", Color.Gold);
+            hashtable.Add("color", Color.FromArgb(169,197,14));
             hashtable.Add("name", "BackgroundPN");
             rotationBack = cm.getPanel2(hashtable, this);
 
             hashtable = new Hashtable();
             hashtable.Add("size", new Size(985, 512));
             hashtable.Add("point", new Point(0, 100));
-            hashtable.Add("color", Color.DarkBlue);
+            hashtable.Add("color", Color.FromArgb(33, 33, 33));
             hashtable.Add("name", "championlist");
             championList = cm.getPanel2(hashtable, this);
             championList.AutoScroll = true;
@@ -59,7 +59,7 @@ namespace LAP
             hashtable = new Hashtable();
             hashtable.Add("size", new Size(140, 30));
             hashtable.Add("point", new Point(10, 5));
-            hashtable.Add("color", Color.Gold);
+            hashtable.Add("color", Color.FromArgb(169, 197, 14));
             hashtable.Add("name", "rotationTitle");
             hashtable.Add("text", "금주 로테이션");
             rotationTitle = cm.getLabel(hashtable, rotationBack);
